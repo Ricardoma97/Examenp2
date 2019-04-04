@@ -13,10 +13,7 @@ class Tweet extends Component {
   }
   killTweet(e){
     e.preventDefault();
-    var auxUser=this.props.obj.user_name;
-    var auxvalue=this.props.obj.description;
     var idaux=this.props.obj.id;
-    console.log(idaux,auxUser,auxvalue);
     fetch("https://still-garden-88285.herokuapp.com/draft_tweets/"+idaux, {
               method: "DELETE",
                headers:{
@@ -25,6 +22,8 @@ class Tweet extends Component {
               })
             .then(function(data) {
           console.log("Request succeeded with  response", data);
+          window.location.reload();
+          //no se como llamar a la funcion rld
            })
        .catch(function(error) {
            console.log("Request failed", error);

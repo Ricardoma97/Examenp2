@@ -11,6 +11,19 @@ function EmptyState(props) {
 }
 
 class Feed extends Component {
+  rld(e){
+    if (this.state.lol===0)
+      this.setState({lol:1});
+    else
+      this.setState({lol:0});
+}
+  constructor(props){
+    super(props);
+    this.state = {
+      lol:1
+    }
+    this.rld=this.rld.bind(this);
+  }
   render() {
     return(
       <ul className="feed">
@@ -22,6 +35,7 @@ class Feed extends Component {
             <Tweet 
               key={tweet.id}
               obj={tweet}
+              function={this.rld}
               // user={tweet.user_name}
               // userPic={tweet.avatar}
               // content={tweet.description}
