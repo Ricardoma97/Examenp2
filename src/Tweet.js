@@ -2,6 +2,34 @@ import React, { Component } from 'react';
 import './App.css';
 
 class Tweet extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      user_name: null,
+      description: null,
+      id:null
+    }
+    this.killTweet=this.killTweet.bind(this);
+  }
+  killTweet(e){
+    e.preventDefault();
+    var auxUser=this.props.obj.user_name;
+    var auxvalue=this.props.obj.description;
+    var idaux=this.props.obj.id;
+    console.log(idaux,auxUser,auxvalue);
+    fetch("https://still-garden-88285.herokuapp.com/draft_tweets/"+idaux, {
+              method: "DELETE",
+               headers:{
+                 'Content-Type': 'application/json'
+                }
+              })
+            .then(function(data) {
+          console.log("Request succeeded with  response", data);
+           })
+       .catch(function(error) {
+           console.log("Request failed", error);
+         });
+  }
   render() {
     const { user_name, avatar, description, created_at } = this.props.obj;
     
@@ -21,6 +49,9 @@ class Tweet extends Component {
           </div>
           <div className="tweet-info">{description}</div>
         </div>
+        <form onSubmit={this.killTweet}>
+        <button>kill</button>
+        </form>
       </li>
     )
   }
